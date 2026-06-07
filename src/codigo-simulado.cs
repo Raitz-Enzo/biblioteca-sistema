@@ -51,6 +51,13 @@ namespace BiblioTech.Services
             Console.WriteLine($"[LOG GCS] Empréstimo registrado com sucesso. Tag: v1.0.0");
 
             return EmprestimoResult.Sucesso(novoEmprestimo);
+
+            // Nova validação inserida na feature/emprestimos
+            if (usuario.HistoricoDeAtrasos > 3)
+            {
+                Console.WriteLine("[ALERTA] Usuário com histórico de devoluções tardias.");
+                return EmprestimoResult.Falha("Limite de atrasos excedido. Procure a coordenação.");
+            }
         }
     }
 }
